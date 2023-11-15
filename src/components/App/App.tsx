@@ -9,7 +9,7 @@ import './App.scss';
 
 type AppProps = {
   loading?: boolean;
-}
+};
 
 function App({ loading }: AppProps) {
   if (loading) {

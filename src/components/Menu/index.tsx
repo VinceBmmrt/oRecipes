@@ -6,10 +6,7 @@ function Menu() {
   const recipes = useSelector((state: any) => state.recipes);
   return (
     <nav className="menu">
-      <a
-        className="menu-link menu-link--active"
-        href="/"
-      >
+      <a className="menu-link menu-link--active" href="/">
         Accueil
       </a>
       {recipes.map((recipe: any) => (
