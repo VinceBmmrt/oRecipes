@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Menu from '../Menu';
 
 import Loading from './Loading';
@@ -19,6 +19,16 @@ function App() {
   }, [dispatch]);
 
   const isLoading = useAppSelector((state) => state.recipes.isLoading);
+
+  const location = useLocation();
+
+  // Lorsque ma page change, je scroll en haut
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [location]);
 
   if (isLoading) {
     return <Loading />;
