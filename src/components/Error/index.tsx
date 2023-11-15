@@ -9,6 +9,7 @@ function Error() {
       <Content
         title="Erreur"
         text="Nous sommes désolé, Une erreur s'est produite."
+        recipes={[]}
       />
     </Page>
   );
