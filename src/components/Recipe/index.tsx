@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Page from '../Page';
 import AppHeader from '../AppHeader';
@@ -25,7 +25,7 @@ function Recipe() {
   );
 
   if (!recipe) {
-    return <Navigate to="/error" replace />;
+    throw new Error('Recipe not found');
   }
   return (
     <Page>
