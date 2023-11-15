@@ -1,7 +1,5 @@
-import Home from '../Home';
+import { Outlet } from 'react-router-dom';
 import Menu from '../Menu';
-// import Recipe from '../Recipe';
-// import Error from '../Error';
 
 import Loading from './Loading';
 
@@ -18,9 +16,7 @@ function App({ loading }: AppProps) {
   return (
     <div className="app">
       <Menu />
-      <Home />
-      {/* <Recipe /> */}
-      {/* <Error /> */}
+      <Outlet />
     </div>
   );
 }

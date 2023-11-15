@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import './styles.scss';
 
@@ -5,17 +7,28 @@ function Menu() {
   const recipes = useAppSelector((state) => state.recipes.list);
   return (
     <nav className="menu">
-      <a className="menu-link menu-link--active" href="/">
+      <NavLink
+        className={({ isActive }) =>
+          clsx('menu-link', {
+            'menu-link--active': isActive,
+          })
+        }
+        to="/"
+      >
         Accueil
-      </a>
+      </NavLink>
       {recipes.map((recipe) => (
-        <a
+        <NavLink
           key={recipe.id}
-          className="menu-link"
-          href={`/recipe/${recipe.slug}`}
+          className={({ isActive }) =>
+            clsx('menu-link', {
+              'menu-link--active': isActive,
+            })
+          }
+          to={`/recipe/${recipe.slug}`}
         >
           {recipe.title}
-        </a>
+        </NavLink>
       ))}
     </nav>
   );
