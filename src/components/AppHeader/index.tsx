@@ -1,9 +1,10 @@
 import './styles.scss';
+import logo from '../../assets/logo.png';
 
 function AppHeader() {
   return (
     <header className="header">
-      <img src="/assets/logo.png" className="header-logo" alt="Logo oRecipes" />
+      <img src={logo} className="header-logo" alt="Logo oRecipes" />
     </header>
   );
 }
