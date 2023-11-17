@@ -3,7 +3,11 @@ import clsx from 'clsx';
 import logo from '../../assets/logo.png';
 import LoginForm from '../LoginForm';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { changeCredentialsField, login } from '../../store/reducers/user';
+import {
+  changeCredentialsField,
+  login,
+  logout,
+} from '../../store/reducers/user';
 
 function AppHeader() {
   const dispatch = useAppDispatch();
@@ -31,6 +35,10 @@ function AppHeader() {
     );
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <header className="header">
       <img src={logo} className="header-logo" alt="Logo oRecipes" />
@@ -44,7 +52,7 @@ function AppHeader() {
           password={passwordValue}
           changeField={handleChangeField}
           handleLogin={handleLogin}
-          handleLogout={() => {}}
+          handleLogout={handleLogout}
           isLogged={isLogged}
           loggedMessage={`Bonjour, toi aussi tu viens pour le donjon ${pseudo} ?`}
         />

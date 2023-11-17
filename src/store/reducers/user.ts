@@ -64,6 +64,11 @@ const userReducer = createSlice({
       const { field, value } = action.payload;
       state.credentials[field] = value;
     },
+    logout(state) {
+      state.logged = false;
+      state.token = undefined;
+      state.pseudo = undefined;
+    },
   },
   extraReducers(builder) {
     builder
@@ -85,6 +90,6 @@ const userReducer = createSlice({
   },
 });
 
-export const { changeCredentialsField } = userReducer.actions;
+export const { changeCredentialsField, logout } = userReducer.actions;
 
 export default userReducer.reducer;
