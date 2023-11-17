@@ -8,13 +8,22 @@ type UserData = {
 };
 
 interface UserState {
+  // La donnée qui me permettra d'afficher un loader au besoin
+  isLoading: boolean;
+  // La donnée qui me permettra d'afficher un message d'erreur au besoin
+  error?: string;
+  // Les données qui seront récupérer par l'API
+  pseudo?: string;
+  token?: string;
   logged: boolean;
+
   credentials: {
     email: string;
     password: string;
   };
 }
 export const initialState: UserState = {
+  isLoading: false,
   logged: false,
   credentials: {
     email: 'bob@mail.io',
@@ -55,6 +64,24 @@ const userReducer = createSlice({
       const { field, value } = action.payload;
       state.credentials[field] = value;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+        // Si j'ai des erreur, je les efface
+        state.error = undefined;
+      })
+      .addCase(login.rejected, (state) => {
+        state.isLoading = false;
+        state.error = 'Identifiants incorrects';
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.pseudo = action.payload.pseudo;
+        state.token = action.payload.token;
+        state.logged = action.payload.logged;
+      });
   },
 });
 
