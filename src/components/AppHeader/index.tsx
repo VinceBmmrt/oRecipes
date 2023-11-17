@@ -1,20 +1,28 @@
 import './styles.scss';
 import logo from '../../assets/logo.png';
 import LoginForm from '../LoginForm';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { changeCredentialsField } from '../../store/reducers/user';
 
 function AppHeader() {
+  const dispatch = useAppDispatch();
   const emailValue = useAppSelector((state) => state.user.credentials.email);
   const passwordValue = useAppSelector(
     (state) => state.user.credentials.password
   );
+  const handleChangeField = (value: string, name: 'email' | 'password') => {
+    // J'emet l'intention de changer la valeur d'un champ
+    // Le nom du champ est ma variable name, et la valeur est ma variable value
+    dispatch(changeCredentialsField({ field: name, value }));
+  };
+
   return (
     <header className="header">
       <img src={logo} className="header-logo" alt="Logo oRecipes" />
       <LoginForm
         email={emailValue}
         password={passwordValue}
-        changeField={() => {}}
+        changeField={handleChangeField}
         handleLogin={() => {}}
         handleLogout={() => {}}
       />
