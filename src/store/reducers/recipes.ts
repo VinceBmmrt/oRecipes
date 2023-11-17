@@ -5,10 +5,12 @@ import { Recipe } from '../../@types/recipe';
 interface RecipesState {
   isLoading: boolean;
   list: Recipe[];
+  favorites: Recipe[];
 }
 export const initialState: RecipesState = {
   isLoading: true,
   list: [],
+  favorites: [],
 };
 
 export const fetchRecipes = createAsyncThunk('recipes/fetch', async () => {
@@ -18,6 +20,17 @@ export const fetchRecipes = createAsyncThunk('recipes/fetch', async () => {
 
   return data;
 });
+
+export const fetchFavoriteRecipes = createAsyncThunk(
+  'recipes/fetch-favorites',
+  async () => {
+    const { data } = await axios.get<{ favorites: Recipe[] }>(
+      'https://orecipes-api.onrender.com/api/favorites'
+    );
+
+    return data;
+  }
+);
 
 const recipesReducer = createSlice({
   name: 'recipes',
