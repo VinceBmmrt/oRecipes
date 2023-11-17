@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { axiosInstance } from '../../utils/axios';
+import { LocalStorage } from '../../utils/LocalStorage';
 
 type UserData = {
   pseudo: string;
@@ -22,6 +23,8 @@ interface UserState {
     password: string;
   };
 }
+// Je vais récupérer les données de l'utilisateur dans le localStorage
+const userData = LocalStorage.getItem('user');
 export const initialState: UserState = {
   isLoading: false,
   logged: false,
@@ -29,6 +32,8 @@ export const initialState: UserState = {
     email: 'bob@mail.io',
     password: 'bobo',
   },
+  // Je déverse les données de l'utilisateur présent dans le localStorage
+  ...userData,
 };
 
 type LoginCredentials = {
@@ -42,7 +47,12 @@ export const login = createAsyncThunk(
 
     // Lorsque je me connecte, je stocke le token d'authorization dans axios
     // Ce header sera envoyé automatiquement à chaque requête avec `axiosInstance`
-    axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+    // axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+    // Je vais enregistrer dans le localStorage les données de l'utilisateur
+    // localStorage me permet de stocker des données dans le navigateur sous la forme de clé/valeur
+    // La clé me permet de pouvoir récupérer / modifier / supprimer la valeur
+    // La valeur DOIT être une chaine de caractère. On transforme donc notre objet en chaines de caractères
+    LocalStorage.setItem('user', data);
 
     return data;
   }
@@ -66,6 +76,8 @@ const userReducer = createSlice({
       state.credentials[field] = value;
     },
     logout(state) {
+      // A la déconnexion, je supprime les données de l'utilisateur dans le localStorage
+      LocalStorage.removeItem('user');
       state.logged = false;
       state.token = undefined;
       state.pseudo = undefined;
