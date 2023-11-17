@@ -10,12 +10,7 @@ interface FieldProps {
   onChange: (value: string) => void;
 }
 // == Composant
-function Field({
-  value,
-  type,
-  placeholder,
-  onChange,
-}: FieldProps) {
+function Field({ value, type, placeholder, onChange }: FieldProps) {
   const inputId = useId();
 
   function handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -35,10 +30,7 @@ function Field({
         placeholder={placeholder}
       />
 
-      <label
-        htmlFor={inputId}
-        className="field-label"
-      >
+      <label htmlFor={inputId} className="field-label">
         {placeholder}
       </label>
     </div>

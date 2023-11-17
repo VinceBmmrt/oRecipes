@@ -34,9 +34,7 @@ function LoginForm({
     <div className="login-form">
       {isLogged && (
         <div className="login-form-logged">
-          <p className="login-form-message">
-            {loggedMessage}
-          </p>
+          <p className="login-form-message">{loggedMessage}</p>
           <button
             type="button"
             className="login-form-button"
@@ -47,8 +45,11 @@ function LoginForm({
         </div>
       )}
       {!isLogged && (
-
-        <form autoComplete="off" className="login-form-element" onSubmit={handleSubmit}>
+        <form
+          autoComplete="off"
+          className="login-form-element"
+          onSubmit={handleSubmit}
+        >
           <Field
             placeholder="Adresse Email"
             onChange={handleChangeField('email')}
@@ -60,10 +61,7 @@ function LoginForm({
             onChange={handleChangeField('password')}
             value={password}
           />
-          <button
-            type="submit"
-            className="login-form-button"
-          >
+          <button type="submit" className="login-form-button">
             OK
           </button>
         </form>
