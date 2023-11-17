@@ -42,6 +42,9 @@ const recipesReducer = createSlice({
       })
       .addCase(fetchRecipes.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(fetchFavoriteRecipes.fulfilled, (state, action) => {
+        state.favorites = action.payload.favorites;
       });
   },
 });
