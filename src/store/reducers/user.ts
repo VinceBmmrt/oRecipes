@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { axiosInstance } from '../../utils/axios';
 
 type UserData = {
   pseudo: string;
@@ -38,10 +38,11 @@ type LoginCredentials = {
 export const login = createAsyncThunk(
   'user/login',
   async (credentials: LoginCredentials) => {
-    const { data } = await axios.post<UserData>(
-      'https://orecipes-api.onrender.com/api/login',
-      credentials
-    );
+    const { data } = await axiosInstance.post<UserData>('/login', credentials);
+
+    // Lorsque je me connecte, je stocke le token d'authorization dans axios
+    // Ce header sera envoyé automatiquement à chaque requête avec `axiosInstance`
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
 
     return data;
   }

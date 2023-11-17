@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { Recipe } from '../../@types/recipe';
+import { axiosInstance } from '../../utils/axios';
 
 interface RecipesState {
   isLoading: boolean;
@@ -14,9 +14,7 @@ export const initialState: RecipesState = {
 };
 
 export const fetchRecipes = createAsyncThunk('recipes/fetch', async () => {
-  const { data } = await axios.get<Recipe[]>(
-    'https://orecipes-api.onrender.com/api/recipes'
-  );
+  const { data } = await axiosInstance.get<Recipe[]>('/recipes');
 
   return data;
 });
@@ -24,8 +22,8 @@ export const fetchRecipes = createAsyncThunk('recipes/fetch', async () => {
 export const fetchFavoriteRecipes = createAsyncThunk(
   'recipes/fetch-favorites',
   async () => {
-    const { data } = await axios.get<{ favorites: Recipe[] }>(
-      'https://orecipes-api.onrender.com/api/favorites'
+    const { data } = await axiosInstance.get<{ favorites: Recipe[] }>(
+      '/favorites'
     );
 
     return data;
