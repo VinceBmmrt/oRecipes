@@ -5,6 +5,8 @@ import './styles.scss';
 
 function Menu() {
   const recipes = useAppSelector((state) => state.recipes.list);
+  const isLogged = useAppSelector((state) => state.user.logged);
+
   return (
     <nav className="menu">
       <NavLink
@@ -17,6 +19,18 @@ function Menu() {
       >
         Accueil
       </NavLink>
+      {isLogged && (
+        <NavLink
+          className={({ isActive }) =>
+            clsx('menu-link', {
+              'menu-link--active': isActive,
+            })
+          }
+          to="/favorites"
+        >
+          Favoris
+        </NavLink>
+      )}
       {recipes.map((recipe) => (
         <NavLink
           key={recipe.id}

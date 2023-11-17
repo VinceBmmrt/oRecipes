@@ -4,6 +4,7 @@ import App from './components/App/App';
 import Home from './components/Home';
 import Recipe from './components/Recipe';
 import Error from './components/Error';
+import Favorites from './components/Favorites';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: 'recipe/:slug',
         element: <Recipe />,
+      },
+      {
+        path: 'favorites',
+        element: <Favorites />,
       },
     ],
   },
